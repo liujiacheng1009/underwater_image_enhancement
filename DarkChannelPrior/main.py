@@ -37,7 +37,6 @@ def AL_estimation(img,dark_channel):
     return A
 
 def Trans_estimation(img, A, r, omega):
-    #omega = 0.95
     img_temp = np.empty(img.shape, img.dtype)
     for i in range(3):
         img_temp[:,:,i] = img[:,:,i]/A[0,i]
@@ -100,7 +99,6 @@ def supermaxmin(a, w):
     return minvalues
 
 def dehaze(img, r, n = 8, thre = 0.1, eps = 0.001, omega = 0.8):    
-    #img_pro = img.astype('float64')/255
     img_pro = np.float64(img)/255
     J_dark = Dark_channel(img_pro, r)
     A = AL_estimation(img_pro, J_dark)
@@ -121,8 +119,8 @@ if __name__ == '__main__':
     saveProcessedImage = False
     showOutput = True
     showTime = True
-    testImagePat= "data/test1.jpg"
-    img = cv2.imread(testImagePat)
+    testImagePath= "data/test1.jpg"
+    img = cv2.imread(testImagePath)
     if showTime:
         start = time.time()
     outputImage = dehaze(img, 5, n=8)
